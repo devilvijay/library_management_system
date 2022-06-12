@@ -13,6 +13,20 @@ app.use(express.json());
 
 
 
+const path = require('path')
+// Static Middleware
+app.use(express.static(path.join(__dirname, 'public')))
+  
+// View Engine Setup
+app.set('views', path.join(__dirname, 'views'))
+  
+app.get('/', function(req, res){
+    res.render('index')
+})
+
+
+
+
 //////////////////////////------------------------IMPORTING HELPERS-----------------------------------//////////////////////////////////////////////
 
 const {
