@@ -446,13 +446,15 @@ app.post('/fine', auth, async (req, res) => {
         let time = Issue.book_info.returnDate.getTime();
         let currtime = Date.now();
         let Data;
+        const Student = await user.findOne({ _id: req.user.user_id }).lean();
         if (currtime > time) {
-            const Student = await user.findOne({ _id: req.user.user_id });
             Student.fines = Student.fines + 50;
             await Student.save();
-            Data = Student
         }
+        delete Student.password;
+        Data = Student
         successMessage.data = Data;
+        // delete successMessage.data.password;
         return res.status(status.success).send(successMessage);
 
     } catch (err) {
@@ -460,7 +462,7 @@ app.post('/fine', auth, async (req, res) => {
         errorMessage.error = 'Operation was not successful';
         return res.status(status.bad).send(errorMessage);
     }
-})
+});
 
 
 /////////////////////////////////////////----------------------------SERVER FOR NODE JS-------------------------------/////////////////////////////////////
