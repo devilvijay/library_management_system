@@ -12,19 +12,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
-
 const path = require('path')
 // Static Middleware
 app.use(express.static(path.join(__dirname, 'public')))
   
-// View Engine Setup
-app.set('views', path.join(__dirname, 'views'))
-  
 app.get('/', function(req, res){
     res.render('index')
 })
-
-
 
 
 //////////////////////////------------------------IMPORTING HELPERS-----------------------------------//////////////////////////////////////////////
@@ -336,9 +330,9 @@ app.get('/getAllbooks', auth, async (req, res) => {
 
 app.post('/issueBook', auth, async (req, res) => {
     try {
-        const Book = await book.findById(req.body.book_id);
+        let Book = await book.find({ISBN : req.body.ISBN});
         const User = await user.findById(req.user.user_id);
-
+        Book=Book[0];
         //registering issue
         book.stock -= 1;
         const Issue = new issue({
@@ -400,7 +394,7 @@ app.post('/renewBook', auth, async (req, res) => {
     try {
         const searchObj = {
             "user_id.id": req.user.user_id,
-            "book_info.id": req.body.book_id,
+            "book_info.ISBN": req.body.ISBN,
         }
 
         const Issue = await issue.findOne(searchObj);
@@ -475,4 +469,3 @@ app.post('/fine', auth, async (req, res) => {
 app.listen(env.port).on('listening', () => {
     console.log(`🚀 are live on ${env.port}`);
 });
-
