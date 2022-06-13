@@ -2,8 +2,8 @@
 # run server.js to run the server
 
 
-#ROUTES 
-Student and Teachers Registe
+# ROUTES 
+## Student and Teachers Register
 URL--https://librarymanagement4.herokuapp.com/auth/signup
 Req params-  {
     "name": "name of user--string",
