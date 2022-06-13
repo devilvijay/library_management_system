@@ -4,7 +4,7 @@
 
 # ROUTES 
 ## Student and Teachers Register
-URL--https://librarymanagement4.herokuapp.com/auth/signup
+URL--https://librarymanagement4.herokuapp.com/auth/signup <br/>
 Req params-  {
     "name": "name of user--string",
     "email": "email of user -- string",
